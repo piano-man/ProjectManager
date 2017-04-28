@@ -16,7 +16,7 @@ public class Connection {
     
     public static java.sql.Connection getConnection() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/HotelReservationSystem","root","bubu");
+        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/HotelReservationSystem","root","IIITAlld12!@");
         return con;
     }
       

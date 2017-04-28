@@ -13,6 +13,34 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import static projectmanagementsystem.Query.displayMessage;
 
+import java.sql.DriverManager;
+import static projectmanagementsystem.Connection.getConnection;
+import static projectmanagementsystem.Query.getSelectResult;
+import java.sql.DriverManager;
+import static java.sql.JDBCType.NULL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import static projectmanagementsystem.Connection.getConnection;
+import static projectmanagementsystem.Query.getSelectResult;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import static projectmanagementsystem.Connection.getConnection;
+import static projectmanagementsystem.Query.getSelectResult;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.JDBCType;
+import static java.sql.JDBCType.NULL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import static projectmanagementsystem.Query.displayMessage;
+
 /**
  *
  * @author prank
@@ -22,6 +50,7 @@ public class Student extends javax.swing.JFrame {
     /**
      * Creates new form Student
      */
+    Connection con=null;
     public Student() {
         initComponents();
     }
@@ -40,64 +69,119 @@ public class Student extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        tf1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jlist1 = new javax.swing.JList<>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        tf1 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("View Groups");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 124, 39));
-
-        jlist1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jlist1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 130, 230));
-
-        jButton2.setText("Edit Project");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, 124, 39));
-
-        jButton3.setText("Back");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 433, 80, 40));
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("StudentId");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, -1, -1));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(590, 650));
 
         tf1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf1ActionPerformed(evt);
             }
         });
-        getContentPane().add(tf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 190, 40));
 
-        jButton4.setText("View Grade");
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton1.setText("View Groups");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton4.setText("View Marks");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 124, 39));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectmanagementsystem/all.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 680));
+        jlist1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jlist1);
+
+        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton2.setText("Edit Project");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton3.setText("Log Out");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel1.setText("StudentId");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(62, 62, 62)
+                        .addComponent(tf1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 540, 380));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectmanagementsystem/student2.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 680));
 
         pack();
         setLocationRelativeTo(null);
@@ -115,7 +199,7 @@ public class Student extends javax.swing.JFrame {
 String name = tf1.getText();
 Class.forName("com.mysql.jdbc.Driver");
 java.sql.Connection con=null;
-con = DriverManager.getConnection("jdbc:mysql://localhost/ProjectManagementSystem","root","bubu");
+con = DriverManager.getConnection("jdbc:mysql://localhost/ProjectManagementSystem","root","IIITAlld12!@");
 String query1 ="SELECT groupname from Students where username ='"+name+"';";
 Statement st1 = con.createStatement();
 ResultSet rs1 = st1.executeQuery(query1);
@@ -178,34 +262,84 @@ catch(Exception e)
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        /*this.setVisible(false);
         EditProject EP = new EditProject();
         
-        EP.setVisible(true);
+        EP.setVisible(true);*/
+          String nam=tf1.getText();
+        Project p=new Project();
+             try         
+            {
+              
+                String groupId= jlist1.getSelectedValue().toString();
+                Class.forName("com.mysql.jdbc.Driver");
+                java.sql.Connection con = null;
+                con =  DriverManager.getConnection("jdbc:mysql://localhost/ProjectManagementSystem","root","IIITAlld12!@");
+                 String userQuery = "SELECT * FROM Projects where GroupId='"+groupId+"'";
+                 Statement st1 =  con.createStatement();
+                ResultSet rs1 = st1.executeQuery(userQuery);
+                 if(rs1.next()){
+                      p.GroupId = rs1.getString("GroupId");
+                      p.ProjectId = rs1.getString("ProjectId");
+                      p.lang = rs1.getString("Language");
+                      p.name = rs1.getString("Name");
+                      p.status=rs1.getString("Status");    
+                      p.subject=rs1.getString("Subject");
+                }
+                 con.close();
+            }
+             catch(Exception e)
+                {
+                   System.out.println(e.getMessage());
+                }
+             if(p.status.equals("Complete"))
+                    displayMessage("Project is already submitted","Not Editable");
+             else
+             {
+                this.setVisible(false);
+                EditProject ep=new EditProject( p.GroupId,p.name,p.ProjectId,p.subject,p.lang,p.status, 1,nam);
+                ep.setVisible(true);
+             }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
   try{ 
-       int a = Integer.parseInt(tf1.getText());
-     String str = jlist1.getSelectedValue().toString();
-      Class.forName("com.mysql.jdbc.Driver");
-java.sql.Connection con=null;
-con = DriverManager.getConnection("jdbc:mysql://localhost/ProjectManagementSystem","root","bubu");
-String q1  = "select grade from Projects where ProjectId='"+str+"';";
-
-Statement st2 = con.createStatement();
-ResultSet rs2 = st2.executeQuery(q1);
-rs2.next();
-String g = rs2.getString("grade");
-JOptionPane.showMessageDialog(this, "Grade of the selected project is " + g);
-     //System.out.println(a);
-   // TODO add your handling code here:
+       String studentId=tf1.getText();
+        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
+                     con = DriverManager.getConnection("jdbc:mysql://localhost/ProjectManagementSystem","root","IIITAlld12!@");
+                     String userQuery = "SELECT groupname FROM Students where username='"+studentId+"'";
+                     Statement st1 = con.createStatement();
+                    ResultSet rs1 = st1.executeQuery(userQuery);
+                    String groupId=null;
+                    if(rs1.next())
+                    {
+                         groupId=rs1.getString("groupname");
+                    }
+                    
+                     userQuery = "SELECT Marks FROM Projects where GroupId='"+groupId+"'";
+                     st1 = con.createStatement();
+                     rs1 = st1.executeQuery(userQuery);
+                      if(rs1.next()){
+                         String marks=rs1.getString("Marks");
+                          if(rs1.wasNull())
+                               displayMessage("Your project has not been graded yet.","Prompt");
+                          else
+                               displayMessage("Marks awarded for the project are :- "+rs1.getString("Marks") ,"Prompt");
+                    }
     }                                        
         catch(Exception e)
     {
         System.out.println(e);
     }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+                this.setVisible(false);
+                LoginPage lp=new LoginPage();
+                lp.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,6 +383,7 @@ JOptionPane.showMessageDialog(this, "Grade of the selected project is " + g);
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> jlist1;
     private javax.swing.JTextField tf1;
